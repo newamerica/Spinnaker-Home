@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"> 
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/> 
+    <title>Wax Manual</title> 
+    <script src='lib/jquery.js' type='text/javascript'></script>
+    <script src='../ext/modestmaps.js' type='text/javascript'></script>
+    <script src='../build/wax.mm.js' type='text/javascript'></script>
+    <script src='lib/showdown.js' type='text/javascript'></script>
+    <script src='lib/shjs.js' type='text/javascript'></script>
+    <script src='lib/sh_javascript.min.js' type='text/javascript'></script>
+    <script src='site.js' type='text/javascript'></script>
+    <link href='lib/shjs.css' rel='stylesheet' type='text/css' /> 
+    <link href='../theme/controls.css' rel='stylesheet' type='text/css' /> 
+    <link href='site.css' rel='stylesheet' type='text/css' /> 
+  </head> 
+  <body> 
+    <div class='page'> 
+<p class='md'>
+## Publishing Maps
+
+**Wax** is a collection of extras and tools that make it easier to publish 
+custom maps on any website. It's an extension of 
+[different mapping APIs](#mapping-libraries), but we'll start out with Modest 
+Maps.
+
+But first, here's an intro into web maps from the very basics. Assuming that you've 
+been designing maps with [TileMill](http://tilemill.com/) or another design tool, and 
+have gotten them up on a server for your usage, what's next? It's actually 
+quite simple to get to the next step: your basic ingredients are
+
+* A map server, like [TileStream](https://github.com/mapbox/tilestream)
+* A Javascript API, like [Modest Maps](https://github.com/stamen/modestmaps-js)
+* Your website
+</p>
+
+
+<div class='section'>
+<p class='md'>
+The mapping server serves up **tiles** of rendered data - tiles being 256 pixel 
+square images covering some of the world. Here's a tile of Europe from the 
+[World Light tileset](http://mapbox.com/tileset/world-light).
+
+There are quite a few mapping APIs, but at their core, they're doing the same 
+sort of thing - adding these tiles to a page and managing them so that the 
+map seems like a continuous world instead of little squares. We'll start off with 
+**Modest Maps** because it's lightweight and fast.
+</p>
+<div class='sidebar'>
+<p class='md'>
+![Europe](http://b.tile.mapbox.com/1.0.0/world-light/2/2/2.png)
+</p>
+</div>
+</div>
+
+<p class='md'>
+### Including the Code
+
+The first step is to actually download and include the necessary Javascript 
+code to make your map work. We'll also include a CSS file to start rolling with 
+style.
+
+After you've got the code downloaded, you'll need to put it on your server and
+include it on your page. The include files are segmented by the mapping API you're 
+using, so in our case, we'll use Modest Maps - `mm`.
+
+    <script src='build/wax.mm.min.js' type='text/javascript'></script>
+
+Then you'll want to include the theme file so that you can see controls -
+you can always swap in your own later on.
+
+    <link href='theme/controls.css' rel='stylesheet' type='text/css' /> 
+
+You'll do the usual Modest Maps setup - just as you'll do the standard setup 
+process with the other APIs.
+</p>
+<div class='section'>
+<div id='modestmaps-setup' class='map'>
+<span class='attribution'>
+    <a href='http://mapbox.com/tileset/world-light'>World Light</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+// Alias com.modestmaps to mm. This isn't necessary - just
+// nice, because it makes the code shorter.
+var mm = com.modestmaps;
+// Set up a map in a div with the id 'modestmaps-setup'
+var m = new mm.Map('modestmaps-setup',
+  // Use Wax's special 'provider' code to add a new custom layer
+  new com.modestmaps.WaxProvider({
+    // From the main MapBox server
+    baseUrl: 'http://a.tile.mapbox.com/',
+    // Called world-light
+    layerName: 'world-light'}),
+    // And it'll be 448px by 300px
+    new mm.Point(448,300));
+
+// Center it on the United States, at zoom level 4.
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+<p class='md'>
+## Wax Extras
+
+Wax provides a set of map controls for Modest Maps that make common map
+tricks easier to do.
+</p>
+<p class='md'>
+### Interaction
+
+The interaction control adds quite a bit of logic to the map, adding 
+interactivity - mouse hovers and clicks - to layers that support it, like those
+made with [TileMill](http://tilemill.com/) and the interactive 
+[UTFGrid section] [1]
+of the [MBTiles spec] [2].
+
+[1]: https://github.com/mapbox/mbtiles-spec/blob/master/1.1/utfgrid.md
+[2]: https://github.com/mapbox/mbtiles-spec
+</p>
+<div class='section'>
+<div id='modestmaps-interaction' class='map'>
+<span class='attribution'>
+    <a href='http://developmentseed.org/blog/2011/apr/7/i-heart-npr-facebook-app-maps-fans'>Map by NPR</a>
+</span>
+</div>
+
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-interaction',
+    new com.modestmaps.WaxProvider({
+      baseUrl: 'http://a.npr.mapbox.com/',
+      layerName: 'iheartnpr-0010'}), new mm.Point(448,300))
+  .interaction();
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+
+
+<p class='md'>
+### Fullscreen
+
+The fullscreen control adds a link to the map that assigns a 
+fullscreen class to the map, which makes it fill the page.
+
+You'll see that this control adds a fullscreen link to the map, and that it's 
+a bit ugly right now. Until Wax's theming improves, keep in mind that its 
+styling, which is contained in `theme/controls.css`, is completely optional 
+and you can replace it with your own.
+</p>
+
+<div class='section'>
+<div id='modestmaps-fullscreen' class='map'>
+<span class='attribution'>
+    <a href='http://mapbox.com/tileset/world-light'>World Light</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-fullscreen',
+    new com.modestmaps.WaxProvider({
+      baseUrl: 'http://a.tile.mapbox.com/',
+      layerName: 'world-light'}), new mm.Point(448,300))
+  .fullscreen();
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+
+<p class='md'>
+### Zoomer
+
+The Zoomer control is a stripped-down version of zoom controls, offering just
+zoom in & out buttons.
+</p>
+
+<div class='section'>
+<div id='modestmaps-zoomer' class='map dark'>
+<span class='attribution'>
+    <a href='http://mapbox.com/tileset/world-glass'>World Glass</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-zoomer',
+    new com.modestmaps.WaxProvider({
+      baseUrl: 'http://a.tile.mapbox.com/',
+      layerName: 'world-glass'}), new mm.Point(448,300))
+  .zoomer();
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+
+<p class='md'>
+### Legend
+
+The legend control pulls legend information from an interactive layer and 
+displays it on the map.
+</p>
+
+<div class='section'>
+<div id='modestmaps-legend' class='map'>
+<span class='attribution'>
+    <a href='http://mapbox.com/tileset/world-print'>World Print</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-legend',
+    new com.modestmaps.WaxProvider({
+      baseUrl: 'http://a.tile.mapbox.com/',
+      layerName: 'world-print'}), new mm.Point(448,300))
+  .legend();
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+
+<p class='md'>
+## Wax Records
+
+Records are a feature of Wax aimed to simplify the configuration of sites that
+host many maps. They translate the configuration of any mapping API into 
+logic-free [JSON](http://json.org/), where it can be stored in a database and 
+easily modified by other code.
+</p>
+<div class='section'>
+<pre class='sh_javascript'>
+new google.maps.Map(document.getElementById('gmap'), {
+  center: new google.maps.LatLng(0, 0),
+  zoom: 2,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+// The above code is equivalent to
+
+wax.Record({ 'wax':
+  ['@new google.maps.Map',
+    ['@call document.getElementById', 'gmap'],
+    {
+      center: ['@new google.maps.LatLng', 0, 0],
+      zoom: 2,
+      mapTypeId: ['@literal google.maps.MapTypeId.ROADMAP']
+    }
+  ]
+});
+</pre>
+<p class='md'>
+Records aim to be a very close translation from the actual Javascript. 
+You'll notice that the Javascript keyword `new` is represented by `@new`, 
+and the same with calling functions, using literal functions, etc.
+
+* Records are not written for variable-heavy code. A great chaining interface,
+with `@group`, `@inject`, and `@chain` is available for libraries that 
+are written in a chainable fashion, like Modest Maps and Polymaps.
+* Records are mainly written for code that will be 'done' when the Record 
+stops spinning. Although `wax.Record` returns the last object it was playing
+around with (most often the map object), this is more a convenience than a core 
+API guarantee.
+</p>
+</div>
+<p class='md'>
+## Mapping Libraries
+
+Wax supports [Modest Maps] [1], [OpenLayers] [2], and [Google Maps] [3] APIs
+with custom map controls - the ability to interact with tooltips and links,
+a legend to illustrate map data, and other various utilities.
+
+Modest Maps is the recommended library for use with Wax. Being more compact 
+than OpenLayers, faster on older browsers than Polymaps, and more flexible 
+than the Google Maps makes it a good choice for custom mapping applications.
+The library was originally developed by Tom Carden and Mike Migurski of
+[Stamen](http://stamen.com/) as a port of [ActionScript and Python code](http://modestmaps.com/).
+
+### Modest Maps and Layering
+
+Modest Maps natively supports a single map layer at a time, unlike OpenLayers, 
+which has a flexible baselayer/overlay system. Currently we're working on 
+compositing layers server-side rather than supporting multiple layers in the 
+browser, because this could give a much higher level of performance.
+
+The main reason that [Polymaps](http://polymaps.org/) is not recommended for
+mainstream usage is its lack of support for Internet Explorer. Modest Maps,
+OpenLayers, and Google Maps all have solid support for Internet Explorer 7
+and higher.
+
+[1]: https://github.com/stamen/modestmaps-js
+[2]: http://www.openlayers.org/
+[3]: http://code.google.com/apis/maps/documentation/javascript/
+</p>
+
+<div class='section'>
+<p class='md'>
+### Protips
+
+For faster maps, use multiple servers. [Most browsers have a limit](https://encrypted.google.com/search?hl=en&q=browser+domain+connection+limit&aq=f&aqi=&aql=&oq=)
+for how many things they can ask a single server for at one time - for 
+instance, Modest Maps will aim to download 18 tiles as soon as you load a map, 
+but Internet Explorer decides that the server shouldn't handle more than two
+requests at a time. Thus, only two tiles are downloaded at a time, despite the 
+fact that modern servers can handle many more. For this problem, we use multiple 
+servers, or more often, multiple domain names. So, you can use
+
+* `a.tile.mapbox.com`
+* `b.tile.mapbox.com` and
+* `c.tile.mapbox.com`
+
+For tile requests. And you can easily specify them in Modest Maps - just give
+the `WaxProvider` function an array of domain names instead of just one.
+</p>
+<div id='modestmaps-cnames' class='map dark'>
+<span class='attribution'>
+  <a href='http://mapbox.com/tileset/world-glass'>World Glass</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-cnames',
+    new com.modestmaps.WaxProvider({
+      baseUrl: [
+        'http://a.tile.mapbox.com/',
+        'http://b.tile.mapbox.com/',
+        'http://c.tile.mapbox.com/'],
+      layerName: 'world-glass'}), new mm.Point(448,300));
+m.setCenterZoom(
+  new com.modestmaps.Location(38.8225909, -97.5585),
+  4);
+</pre>
+</div>
+<div class='section'>
+<p class='md'>
+And, of course, there are other options you can set on the WaxProvider 
+object, not just layerName and baseUrl.
+
+* **filetype**: default `.png`, it can be `.jpg` or anything else.
+* **zoomRange**: default `[0, 18]`, it can be any restricted range of 
+zoom levels that you happen to have rendered.
+</p>
+<div id='modestmaps-options' class='map'>
+<span class='attribution'>
+  <a href='http://mapbox.com/tileset/pakistan-grey'>Pakistan Grey</a>
+</span>
+</div>
+<pre class='sh_javascript run'>
+var mm = com.modestmaps;
+var m = new mm.Map('modestmaps-options',
+    new com.modestmaps.WaxProvider({
+      baseUrl: 'http://a.tile.mapbox.com/',
+      layerName: 'pakistan-grey',
+      zoomRange: [0, 9],
+      filetype: '.jpg'}), new mm.Point(448,300));
+m.setCenterZoom(
+  new com.modestmaps.Location(30.5, 69.78),
+  4);
+</pre>
+</div>
+    </div>
+  </body>
+</html>
