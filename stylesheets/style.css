@@ -341,6 +341,13 @@ a#all-savings {
   color: #fff;
   }
 
+.aboutOverlay{
+	background:rgba(51, 51, 51, 0.9);
+	margin:10px;
+	padding:10px;
+	float:left;
+}
+
 .green {
 	background:#00C3C2;
 	height:350px;
@@ -350,6 +357,14 @@ a#all-savings {
 .green img{
 	padding:15px;
 	float:right;
+}
+
+.slideOverlay{
+	background:rgba(51, 51, 51, 0.8);
+	width:480px;
+	position:absolute;
+	margin-top:200px;
+	height:100px;
 }
 
 /* --------------------------
