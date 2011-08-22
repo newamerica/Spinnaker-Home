@@ -280,6 +280,67 @@ a#all-savings {
   z-index: 10;
   }
 
+#footer h5 {
+  font-family: Georgia,"Times New Roman",Serif;
+  font-size: 14px;
+  }
+#footer {
+  color: #fff;
+  font-size: 12px;
+  font-family: Arial,Helvetica,sans-serif;
+  }
+#footer .download,
+#footer .contact,
+#footer .partners {
+  float: left;
+  padding: 10px 20px;
+  min-height: 150px;
+  height: auto!important;
+  height: 150px;
+  }
+#footer .contact,
+#footer .partners {
+  width: 200px;
+  border-right: 1px dashed #777;
+  }
+#footer .partners a {
+  margin-bottom: 10px;
+  }
+#footer .partners a#gates {
+  width: 145px;
+  height: 30px;
+  background-position: -105px -20px;
+  }
+#footer .partners a#newamerica {
+  width: 130px;
+  height: 30px;
+  background-position: -250px 0;
+  }
+#footer .download {
+  width: 430px;
+  }
+#footer .download a {
+  color: #777;
+  }
+#footer .downloadblock {
+  background: transparent url(../images/sprite_base.png) no-repeat -455px -230px;
+  padding-left: 80px;
+  height: 60px;
+  margin-top: 20px;
+  }
+#footer .downloadblock a {
+  background: #2D2D2D;
+  padding: 10px;
+  color: #747474;
+  font-family: Georgia,"Times New Roman",Serif;
+  font-size: 28px;
+  display: block;
+  }
+#footer .downloadblock a:hover {
+  background: #222;
+  color: #fff;
+  }
+
 /* --------------------------
   Map
 ----------------------------- */
