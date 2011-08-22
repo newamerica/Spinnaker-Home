@@ -344,6 +344,7 @@ a#all-savings {
 .green {
 	background:#00C3C2;
 	height:350px;
+	position: relative;
 }
 
 .green img{
