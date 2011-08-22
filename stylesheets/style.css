@@ -341,6 +341,15 @@ a#all-savings {
   color: #fff;
   }
 
+.green {
+	background:#00C3C2;
+	height:350px;
+}
+
+.green img{
+	padding:15px;
+}
+
 /* --------------------------
   Map
 ----------------------------- */
