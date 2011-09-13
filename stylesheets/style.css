@@ -897,3 +897,22 @@ div.indicators .column {
 
 * html .clearfix { height: 1%; } /* IE6 */
 *:first-child + html .clearfix { min-height: 1%; } /* IE7 */
+
+/*quotes*/
+
+.bqstart {
+     float: left;
+     font-size: 500%;
+     color:rgba(150,150,150,0.5);
+ }
+
+
+ .bqend {
+     float: right;
+     font-size: 500%;
+     color: #FF0000;
+	 height: 25px;
+	 margin-top: 0px;
+     padding-top: 45px;
+	 color:rgba(150,150,150,0.5);
+ }
