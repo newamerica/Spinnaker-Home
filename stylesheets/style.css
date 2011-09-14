@@ -205,6 +205,12 @@ input.submit:hover {
   color: #fff;
   }
 
+.icon {
+  background: transparent url(../images/sprite_base.png) no-repeat 0 0;
+  display: block;
+  text-indent: -999999px;
+  }
+
 /* --------------------------
   Global Styles
 ----------------------------- */
