@@ -53,6 +53,11 @@ button{
 	background:-moz-linear-gradient(top, #868686 0%, #969696 100%);
 	background:-webkit-gradient(linear, left top, left bottom, from(#868686), to(#969696));
 }
+
+#footer{
+	float:left;
+}
+
 .detailBox{
 	color: white;
 /*	min-height: 780px;*/
@@ -84,10 +89,32 @@ button{
 }
 
 button.horizontalSwitcher{
-	border:solid #fff;
+/*	border:solid #fff;
 	border-width:0px 5px 0px 0px;
 	width:250px;
-	margin:0px;
+	margin:0px;*/
+	border:solid #fff;
+		border-width:0px 5px 0px 0px;
+	width:250px;
+	color: #fff;
+    font: bold 12px Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    padding: 7px 12px;
+    -webkit-transition: background-color .218s;
+    -moz-transition: background .218s;
+    -o-transition: background-color .218s;
+    transition: background-color .218s;
+    background: #969696;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#969696),to(#919191));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#969696),to(#919191));
+    margin: 0px;
+}
+
+button.horizontalSwitch:hover{
+	background: #00C3C2;
+    border-color: #fff;
+/*    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2) -webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);*/
 }
 
 .horizontalSwitch .active{
@@ -102,7 +129,7 @@ button.horizontalSwitcher{
 .partnerInfo{
 	float:left;
 	width:250px;
-	margin:-20px 20px;
+	margin:-20px 0px 20px 20px;
 }
 
 .partnerInfo li{
@@ -114,15 +141,32 @@ button.horizontalSwitcher{
 .partnerInfo li a{
 	color:#fff;
 	font-size:16px;
+	-webkit-transition: color .218s;
+    -moz-transition: color .218s;
+    -o-transition: color .218s;
+    transition: color .218s;
 }
 
 .partnerInfo li a:hover{
-	color:#000;
+	color: #333;
+    border-color: #fff;
 }
 
-#footer{
+div.partnerList{
 	float:left;
+	width:959px;
+	background:#f69680;
+	position:relative;
+	left:-239px;
+	top:0px
 }
+
+div.partnerList p {
+	margin: -8px 0px 15px 15px;
+	font-size:14px;
+	line-height:15px;
+}
+
 </style>
 
 <script>
@@ -177,7 +221,8 @@ $(document).ready(function() {
 		},
 		mouseenter: function(){
 			$(this).css({
-				'background':'#00C3C2'
+				'background':'#00C3C2',
+			    'border-color': '#fff'
 			});
 		},
 		mouseleave: function(){
@@ -211,12 +256,13 @@ $(document).ready(function() {
 						<h3 style="font-size:17px;">SPINNAKER's vision is a network of professionals operating more efficiently and innovating more quickly as a result of a shared information commons on savings products for the poor.</h3>
 						</blockquote>
 					</div>
-					<div class="about" style="color:#fff;height:320px;">
+					<div class="about" style="color:#fff;height:400px;">
 					    <div class="about-inner">
 					      <h6>About SPINNAKER</h6>The Global Assets Program at the New America Foundation has been contracted by the Bill &amp; Melinda Gates Foundation to collaboratively create with leaders in the savings field an online platform and network to achieve this vision. The SPINNAKER Network aims to provide practitioners and researchers with an online platform that aggregates data and information on savings, engages leaders in field, and highlights innovative savings products to funders, researchers, practitioners, and policymakers in the savings for the poor field from around the world.</p>
 					    </div>
-						<div style="float:left;width:959px;background:#f69680;position:relative;left:-239px;top:0px;" class="item">
+						<div class="partnerList">
 							<h1 style="border-top:1px dashed #fff;margin:20px 10px;">Partners</h1>
+							<p style="font-size:14px;">Collaborative sharing is at the core of SPINNAKER's mission to catalogue (and spur new) data, research and analysis on savings products for the poor. As such, we invite other practitioners, researchers and stakeholders in the field to join and contribute to SPINNAKER based on their own interests and expertise. Current information-sharing and advisory partners include:</p>
 							<ul class="partnerInfo">
 								<!-- <li><a href="#">Bankable Frontier Associates</a></li> -->
 								<li><a href="http://www.cgap.org/p/site/c/">CGAP</a></li>
@@ -232,6 +278,8 @@ $(document).ready(function() {
 								<li><a href="http://www.wsbi.org/">World Savings Banks Institute</a></li>
 								<!-- <li><a href="#">WOCCU</a></li> -->
 							</ul>
+							<br/>
+							<p style="float:left;">To explore partnering, or engaging in other ways, on SPINNAKER, please <a style="color:#333;" href="http://community.spinnakernetwork.org/contact" target="_blank">contact us.</a></p>
 						</div>
 					</div>
 					<!-- <div style="background:rgba(85, 85, 85, 0.8) url('images/map_photo.png') no-repeat;min-height:270px;width:960px;margin-bottom:20px;">
@@ -280,7 +328,7 @@ $(document).ready(function() {
 							<li>Offered by formal, regulated financial institutions</li>
 							<li>Policies such as interest rates and fees are set by the institution as opposed to individual savers</li>
 						</ul>
-						<p>In a collaborative effort, we have a created a data form (which can be downloaded by clicking <a href="http://community.spinnakernetwork.org/files/Institution_and_Product_Entry_Forms_Print_Version_-_Revised_09_06_2011.doc" target="_blank">here</a>) to better understand and identify what features and characteristics are key to a saving product's success. We invite your <a href="http://community.spinnakernetwork.org/contact" target="_blank">feedback</a> on how we can continue to improve it. </p>
+						<p>In a collaborative effort, we have created a data form (which can be downloaded by clicking <a href="http://community.spinnakernetwork.org/files/Institution_and_Product_Entry_Forms_Print_Version_-_Revised_09_06_2011.doc" target="_blank">here</a>) to better understand and identify what features and characteristics are key to a saving product's success. We invite your <a href="http://community.spinnakernetwork.org/contact" target="_blank">feedback</a> on how we can continue to improve it. </p>
 							<!-- <ul class="detailList">
 															<li><strong>Current Account</strong> (e.g. Demand/Sight deposit, Passbook, Regular Savings Accounts): Plain vanilla deposit accounts that usually offer the ability to deposit and withdraw at will</li>
 															<li><strong>Commitment Savings</strong> (e.g. Compulsory/Mandatory, Contractual/Programmed, Time/Certificate/Fixed Deposit): Deposit accounts that receive small, steady deposits against a future goal such as school fees, a new roof, or a major asset.</li>
@@ -289,7 +337,7 @@ $(document).ready(function() {
 					</div>
 					<div class="detailBox innovation" style="display:none;">
 				      <h6>Innovation</h6>
-				      <p>There are several different ways of defining innovation. Research shows that a savings product innovation can result from improving the extent to which a product is: “liquid, private, clear, convenient, well-known, viable, affordable, and addresses psychological and emotional elements (<a href="http://www.bankablefrontier.com/assets/pdfs/GAFIS-FocusNote1.pdf" target="_blank">GAFIS Focus Note 1, Bankable Frontier, Feb. 2011</a>). Innovations can also be understood as a product feature that responds to client demand identified through market research (<a href="http://karlan.yale.edu/p/tn008.pdf" target="_blank">Ashraf, et. al., ERD Technical Note Series, Asian Development Bank, Nov. 2003</a>). Others have examined reasons for low usage rates as areas for institutions to innovate, such as proximity and security (<a href="http://www.cgap.org/gm/document-1.9.2578/FN37.pdf" target="_blank">Deshpande, Focus Note 37, CGAP, Sept. 2006</a>). Through knowledge sharing and collaboration, SPINNAKER will provide a space where creative and successful practices and ideas are shared and explored among this diverse and growing field, with the ultimate goal of spurring innovation that helps achieve the field’s common objectives more effectively and rapidly.</p><br/>
+				      <p>There are several different ways of defining innovation. Research shows that a savings product innovation can result from improving the extent to which a product is: "liquid, private, clear, convenient, well-known, viable, affordable, and addresses psychological and emotional elements" (<a href="http://www.bankablefrontier.com/assets/pdfs/GAFIS-FocusNote1.pdf" target="_blank">GAFIS Focus Note 1, Bankable Frontier, Feb. 2011</a>). Innovations can also be understood as a product feature that responds to client demand identified through market research (<a href="http://karlan.yale.edu/p/tn008.pdf" target="_blank">Ashraf, et. al., ERD Technical Note Series, Asian Development Bank, Nov. 2003</a>). Others have examined reasons for low usage rates as areas for institutions to innovate, such as proximity and security (<a href="http://www.cgap.org/gm/document-1.9.2578/FN37.pdf" target="_blank">Deshpande, Focus Note 37, CGAP, Sept. 2006</a>). Through knowledge sharing and collaboration, SPINNAKER will provide a space where creative and successful practices and ideas are shared and explored among this diverse and growing field, with the ultimate goal of spurring innovation that helps achieve the field’s common objectives more effectively and rapidly.</p><br/>
 				<p>How do you define an innovation in the field of savings for the poor? What makes a savings product innovative? Join the conversation <a href="http://community.spinnakernetwork.org/how-do-you-define-innovation-field-savings-poor-what-makes-savings-product-innovative" target="_blank">here.</a></p>
 					</div>
 				</div>
