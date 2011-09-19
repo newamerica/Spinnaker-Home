@@ -72,6 +72,10 @@ h1 a {
 a {
   color: #f69680;
   text-decoration: none;
+  -webkit-transition: color .218s;
+  -moz-transition: color .218s;
+  -o-transition: color .218s;
+  transition: color .218s;
   }
 a:hover {
   color: #333;
@@ -922,3 +926,12 @@ div.indicators .column {
      padding-top: 45px;
 	 color:rgba(150,150,150,0.5);
  }
+
+/*-----------------------
+  Research pages
+-------------------------*/
+
+.articleDetail{
+	background: #F4F4F4;
+	padding: 5px;
+}
