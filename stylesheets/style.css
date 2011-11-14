@@ -371,10 +371,20 @@ a#all-savings {
 
 .slideOverlay{
 	background:rgba(51, 51, 51, 0.8);
-	width:480px;
+	width:500px;
 	position:absolute;
-	margin-top:200px;
+	margin-top:150px;
 	height:100px;
+}
+
+.slideOverlay2{
+/*	background: rgba(51, 51, 51, 0.9);*/
+	width: 700px;
+	color: white;
+	height: 0px;
+	padding: 5px;
+	line-height:22px;
+	float:right;
 }
 
 /* --------------------------

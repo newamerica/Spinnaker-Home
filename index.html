@@ -9,24 +9,29 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <!--[if IE]><script type="text/javascript" src="scripts/excanvas.compiled.js"></script><![endif]-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>  
-<script src="scripts/jquery.flot.min.js"></script> 
+<!-- <script src="scripts/jquery.flot.min.js"></script> 
 <script src="scripts/modestmaps.min.js"></script> 
-<script src="scripts/wax/build/wax.mm.min.js"></script> 
+<script src="scripts/wax/build/wax.mm.min.js"></script>  -->
 <!-- <script src="/app.js"></script>  -->
-<script src="scripts/base64.js"></script> 
-<script src="scripts/json2.js"></script> 
-<script src="scripts/jquery.cycle.lite.1.1.js"></script>
+<!-- <script src="scripts/base64.js"></script> 
+<script src="scripts/json2.js"></script>  -->
+<script src="scripts/jquery.cycle.all.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#mainSlider').cycle({ 
 		timeout: 6000,
-	    height:   320,
+	    height:   270,
 		prev:   '#slidePrev', 
 		next:   '#slideNext',
-		fx: 'custom',
-		cssBefore:{ opacity: 0, 'z-index':100 },
-		animOut: { opacity: 0, 'z-index':1 },
-		animIn: { opacity: 1 }
+		fx: 'fade',
+		pause: 1,
+		pauseOnPagerHover: 1,
+		pager:  '#slideCaption',
+		pagerAnchorBuilder: function(idx, slide) { 
+			var linkText = $('h3', slide).text();
+			// var linkText = slide.firstElementChild.innerText;
+	        return '<li class="slideCaption"><a href="#" style="display:inline;">'+linkText+'</a></li>'; 
+	    }
 	});
 });
 </script>
@@ -44,12 +49,191 @@ $(document).ready(function() {
     </style>
 
 <![endif]-->
+
+<style type="text/css" media="screen">
+	.activeSlide{
+		background:#969696;
+		-webkit-transition: background .218s;
+	    -moz-transition: background .218s;
+		-o-transition: background .218s;
+	    transition: background .218s;
+	}
+	
+	.captionWrap{
+		position:relative;
+		top:-20px;
+		height:20px;
+		background:#333;
+		background:-webkit-gradient(linear,0% 40%,0% 70%,from(#333),to(#2d2d2d));
+		background:-moz-linear-gradient(linear,0% 40%,0% 70%,from(#333),to(#2d2d2d));
+		border-top:1px solid #969696;
+	}
+	
+	.infoBox{
+		display: inline;
+		float: left;
+		position: relative;
+		margin-left: 10px;
+		margin-right: 10px;
+		width: 470px;
+		position: relative;
+		top: 10px;
+		height: 170px;
+		background:#333;
+		background: -webkit-gradient(linear,0% 30%,0% 100%,from(#333),to(#2d2d2d));
+		background: -moz-linear-gradient(linear,0% 30%,0% 100%,from(#333),to(#2d2d2d));
+		margin-bottom: 20px;
+		color: white;
+		font-size:16px;
+		line-height:22px;
+	}
+	.infoBox a:hover{
+		color:#f4f4f4;
+	}
+	.infoBox h3{
+		color:#f4f4f4;
+		padding-left:5px;
+		border-bottom:1px dotted #969696;
+		width:80%;
+	}
+	.infoBox h3 a{
+		color:#fff;
+	}
+	.infoBox h3 a:hover{
+		color:#f69680;
+	}
+	.infoBox img{
+		float:right;
+		width:30px;
+		padding:10px;
+		position:relative;
+		top:-45px;
+		background:#00c3c2;
+		background: -webkit-gradient(linear,0% 10%,0% 100%,from(#00a1a0),to(#00c3c2));
+		background: -moz-linear-gradient(linear,0% 10%,0% 100%,from(#00a1a0),to(#00c3c2));
+		-moz-box-shadow: -2px 2px 4px #303030;
+		-webkit-box-shadow: -2px 2px 6px #303030;
+		box-shadow: -2px 2px 6px #303030;
+	}
+	.infoBox2{
+		display: inline;
+		float: left;
+		position: relative;
+		margin-left: 10px;
+		margin-right: 10px;
+		width: 303px;
+		position: relative;
+		top: 10px;
+		height: 120px;
+/*		background:#969696;*/
+/*		background: -webkit-gradient(linear,0% 30%,0% 100%,from(#969696),to(#888888));*/
+/*		background: -moz-linear-gradient(linear,0% 30%,0% 100%,from(#969696),to(#888888));*/
+		margin-bottom: 20px;
+		color: white;
+		font-size:16px;
+		line-height:22px;
+		border-bottom:1px dotted #f4f4f4;
+	}
+	.infoBox2 img{
+		float: right;
+		width: 80px;
+		padding: 0px;
+		position: relative;
+		top: -25px;
+		right:20px;
+		margin:-20px;
+		-moz-box-shadow: 0px -1px 4px #666;
+		-webkit-box-shadow: 0px -1px 4px #666;
+		box-shadow: 0px -1px 4px #666;
+	}
+	
+	.infoBox2 a:hover{
+		color:#f4f4f4;
+	}
+	.infoBox2 h3{
+		color:#f4f4f4;
+		padding-left:5px;
+		border-bottom:1px dotted #f4f4f4;
+	}
+	.infoBox2 h3 a{
+		color:#fff;
+	}
+	.infoBox2 h3 a:hover{
+		color:#f69680;
+	}
+	.infoBox2 ul{
+		padding-left:20px;
+		font-size:14px;
+	}
+	.infoBox2 p{
+		padding-left:10px;
+		font-size:14px;
+	}
+	
+	.alpha{
+		margin-left:0px;
+	}
+	.omega{
+		margin-right:0px;
+	}
+	
+	.slideCaption{
+		display:inline;
+		padding:5px;
+		width:310px;
+		float:left;
+		text-align:center;
+		-webkit-transition: background .218s;
+	    -moz-transition: background .218s;
+		-o-transition: background .218s;
+	    transition: background .218s;
+	    text-transform:uppercase;
+		font-size:12px;
+	}
+	.slideCaption:hover{
+		background:#969696;
+	}
+	.slideCaption a:hover{
+		color:#000;
+	}
+	.slideCaption a{
+		color:#fff;
+	}
+	li.slideCaption.activeSlide a{
+		color:#000;
+	}
+	
+	.homeBox{
+		min-height:200px;
+		width:960px;
+		margin-bottom:0px;
+		float:left;
+		box-shadow:0px 0px 2px #666;
+/*		background:#333;
+		background:#969696 url(images/sprite_base.png) no-repeat 450px -285px;
+		background: -webkit-gradient(linear,0% 30%,0% 100%,from(#333),to(#2d2d2d));
+	    background: -moz-linear-gradient(linear,0% 30%,0% 100%,from(#333),to(#2d2d2d));*/
+	
+		background:#00c3c2;
+		background: -webkit-gradient(linear,0% 10%,0% 100%,from(#00a1a0),to(#00c3c2));
+		background: -moz-linear-gradient(linear,0% 10%,0% 100%,from(#00a1a0),to(#00c3c2));
+		
+	}
+	.latestWrap{
+		float:left;
+		background:#00C3C2;
+		background: -webkit-gradient(linear,0% 10%,0% 100%,from(#00A1A0),to(#00C3C2));
+	    background: -moz-linear-gradient(linear,0% 30%,0% 100%,from(#00A1A0),to(#00C3C2));
+	}
+	.latestWrap a{
+		color:#333;
+	}
+</style>
 <body> 
 <div id="wrapper"> 
 	<div id="masthead">
 		<div class="layout-inner"></div>
 	</div>
- 
 	<div id="main">
 		<div id="header">
 			<a style="background:transparent url('images/sprite3.png') no-repeat -25px -5px;display:block;width:80px;height:100px;position:fixed;top:250px;left:0px;overflow:hidden;text-indent:-9999px;" href="https://spreadsheets.google.com/spreadsheet/viewform?formkey=dHRFOTA1OXhFaTliNGttUWZsUktUcVE6MQ" target="_blank">Feedback</a>
@@ -64,45 +248,64 @@ $(document).ready(function() {
 		    </ul>
   		</div>
 		<div id="content" class="clearfix">
-			<div class="home">
-				<div id="slideNext" style="background:transparent url('images/sprite_base.png') no-repeat -200px  -470px;width: 60px;height: 45px;position: absolute;top: 230px;right: -15px;z-index:1000;cursor:pointer;"></div>
-				<div id="slidePrev" style="background:transparent url('images/sprite_base.png') no-repeat -150px -470px;width: 50px;height: 40px;position: absolute;top: 230px;left:0px;z-index:1000;cursor:pointer;"></div>
-					<div id="mainSlider">
-						<div id="slide1" style="background:#555 url('images/map_photo.png') no-repeat;min-height:300px;width:960px;margin-bottom:20px;">
-							<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:15px;">Mapping Savings Products for the Poor</h3><span style="padding:15px;color:#fff;font-size:17px;">Tracking <a href="http://data.spinnakernetwork.org/products">287</a> Products from <a href="http://data.spinnakernetwork.org/">97</a> Institutions in <a href="http://data.spinnakernetwork.org/">31</a> Countries</span></p>
-							</div>
-							<div class="slideOverlay" style="width:479px;left:480px;border-left:1px dashed #ccc;"><p><h3 style="opacity:1;color:#fff;padding:30px 110px;background:transparent url('images/sprite_base.png') no-repeat -400px -90px;height:30px;"><a href="http://data.spinnakernetwork.org/">Explore Our Database</a></h3></p>
-							</div>
-						</div>
-						<div id="slide2" style="background:#555 url('images/mobile_photo.png') no-repeat;min-height:300px;width:960px;margin-bottom:20px;">
-							<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:25px;">Savings Products Go Mobile</h3></p>
-							</div>
-							<div class="slideOverlay" style="width:479px;left:480px;border-left:1px dashed #ccc;"><span style="background:transparent url('images/sprite_base.png') no-repeat 15px -185px;height:100px;width:80px;position:absolute;margin:0px 20px;"></span><p style="color:#fff;padding:30px 110px;font-size:17px;"><a href="http://community.spinnakernetwork.org/category/publication-categories/mobile">Read out latest reports on mobile<br/>banking and mobile savings</a></p>
-							</div>
-						</div>
-						<div id="slide3" style="background:#555 url('images/community_photo.png') no-repeat;min-height:300px;width:960px;margin-bottom:20px;">
-							<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:25px;">Growing Business Through Saving</h3></p>
-							</div>
-							<div class="slideOverlay" style="width:479px;left:480px;border-left:1px dashed #ccc;"><span style="background:transparent url('images/sprite_base.png') no-repeat 15px -185px;height:100px;width:80px;position:absolute;margin:0px 20px;"></span><p style="opacity:1;color:#fff;padding:30px 110px;font-size:17px;"><a href="http://community.spinnakernetwork.org/">Learn more about our community of practitioners and thought leaders</a></p>
-							</div>
-						</div>
-					</div> <!--end mainSlider -->
-				<div class="about">
-					<div class="about-inner">
-						<h6>What We Do</h6>
-						<p>The Savings for the Poor Innovation and Knowledge Network (SPINNAKER) aggregates, standardizes and highlights the landscape of information and data on savings products for the poor by coordinating with thinkers and doers in the field. Our database, resource library and community space are the product of the innovative work of leaders in the savings for the poor field.</p>
-					</div>
-				</div><!--end about -->
-				<div class="green">
-					<img src="images/screen1.jpg" width="50%"/>
-    				<div style="color:#fff;min-height:135px;padding:5px 20px 20px;">
-      					<h6>Improving Access to Information</h6>
-      					<p style="width:350px;">By working to build a central and collaborative information and data resource, SPINNAKER's goal is to increase the pace of innovation and development in the savings for the poor field. SPINNAKER is designed to highlight the wide range of savings information and data available while also exposing areas for continued contributions and growth.</p>
-					</div>
-					<div style="background:#00C3C2 url('images/sprite_base.png') no-repeat -400px -90px;height:100px;width:100px;float:left;"></div>
-					<div style="margin:30px 105px;padding:0px 100px;background:#00A8A8;opacity:0.8;width:140px;position:absolute;float:left;"><h6><a style="color:#fff;"  href="http://data.spinnakernetwork.org/products">Browse the Savings Product Database</a></h6>
-					</div>
-    			</div><!-- end green -->
+			<div class="homeBox">
+				<!-- <div class="captionWrap"></div> -->
+				<a href="http://spinnakernetwork.org/about.html"><button style="position:relative;top:170px;">Learn More</button></a>
+					<div class="slideOverlay2"><h2 style="font-weight:bold;font-size:40px;letter-spacing:-1px;border-bottom:1px solid #f4f4f4;padding-bottom:5px;">SPINNAKER</h2><h3 style="color:#333;">The Savings for the Poor Innovation and Knowledge Network</h3>
+					<p>The Savings for the Poor Innovation and Knowledge Network (SPINNAKER) aggregates, standardizes and highlights the landscape of information and data on savings products for the poor by coordinating with thinkers and doers in the field. Our database, resource library and community space are the product of the innovative work of leaders in the savings for the poor field.</p>
+				</div>
+				<div style="background: transparent url('images/sprite_base.png') no-repeat -285px -290px;height: 140px;width:225px;float: left;"></div>
+				<!-- <div style="background:#969696;height:140px;width:960px;"></div> -->
+				<!-- <div class="captionWrap" style="top:0px;"></div> -->
+			</div>
+				<div class="mainOverview">			
+									<div class="infoWrap">		
+									<div class="alpha infoBox">
+										<h3><a href="http://community.spinnakernetwork.org/">Discuss</a></h3> 
+										<img src="http://community.spinnakernetwork.org/sites/community.spinnakernetwork.org/themes/naf-spinnaker/styles/images/connect.png">
+										<p style="padding:5px;">Become Part of the Community: 
+											<ul style="margin-left:20px;">
+												<li><a href="http://community.spinnakernetwork.org/blogs">Participate in Conversations</a></li>
+												<li><a href="http://community.spinnakernetwork.org/forum/229">Ask Questions</a></li>
+												<li><a href="http://community.spinnakernetwork.org/user/register">Become a Memeber</a></li>
+											</ul>
+										</p>
+									</div>	
+									<div class="infoBox omega">
+										<h3><a href="http://data.spinnakernetwork.org/">Discover</a></h3> 
+										<img src="images/explore.png">
+										<p style="padding:5px;">Explore Our Data and Resources: 
+											<ul style="margin-left:20px;float:left;">
+												<li><a style="font-size:20px;" href="http://data.spinnakernetwork.org/products">346</a> Savings Products</li>
+												<li><a style="font-size:20px;" href="http://data.spinnakernetwork.org/">32</a> Countries</li>		
+												</ul>
+												<ul style="margin-left:20px;float:left;">
+													<li><a style="font-size:20px;" href="http://data.spinnakernetwork.org/institutions">128</a> Financial Institutions</li>
+												<li><a style="font-size:20px;" href="http://community.spinnakernetwork.org/research">150</a> Articles on Savings</li>
+											</ul>
+										</p>
+									</div>
+								</div>
+									<div class="clearfix"></div>	
+									<div class="latestWrap">		
+										<div class="alpha infoBox2"><h3>Latest Conversations</h3>
+											<img src="images/community_photo.png">
+											<p><a href="#">Strengthening Our Collective Impact in the Field of Savings for the Poor</a></p>
+										</div>	
+										<div class="infoBox2"><h3>Newest Data</h3>
+											<img src="images/map_photo.png">
+											<p>In our <a href="http://data.spinnakernetwork.org/#/country/kenya" target="_blank" style="color:#fff;">Kenya</a> data we&#39;ve added<br/> <a href="http://data.spinnakernetwork.org/#/products/eyJxdWVyeSI6IioiLCJmYWNldHMiOnsiY291bnRyeS5yYXciOiJLZW55YSJ9fQ/0" target="_blank" style="margin-left:10px;"><strong>104 products</strong></a> <br/><a href="http://data.spinnakernetwork.org/#/country/kenya" target="_blank" style="margin-left:10px;"><strong>20 institutions</strong></a></p>										
+										</div>
+										<div class="infoBox2"><h3>Featured Articles</h3>
+											<img src="images/mobile_photo.png">
+											<ul>
+												<li><a href="http://community.spinnakernetwork.org/sites/community.spinnakernetwork.org/files/NAFSavingsPhilippines.pdf">Savings for the Poor in the Philippines</a></li>
+												<li><a href="#">The Power of Successful, Market-led Savings Mobilization</a></li>
+											</ul>
+										</div>
+									</div>
+										<div class="clearfix"></div>
+
 			</div><!--end home -->
 		</div><!--end content -->
 	</div><!--end main -->
@@ -149,5 +352,48 @@ $(document).ready(function() {
   })();
 
 </script>
+<!-- <div id="slideNext" style="background:transparent url('images/sprite_base.png') no-repeat -200px  -470px;width: 60px;height: 45px;position: absolute;top: 200px;right: -15px;z-index:1000;cursor:pointer;"></div>
+				<div id="slidePrev" style="background:transparent url('images/sprite_base.png') no-repeat -150px -470px;width: 50px;height: 40px;position: absolute;top: 200px;left:0px;z-index:1000;cursor:pointer;"></div> -->
+
+
+<!-- <div class="green">
+					<img src="images/screen1.jpg" width="50%"/>
+    				<div style="color:#fff;min-height:135px;padding:5px 20px 20px;">
+      					<h6>Improving Access to Information</h6>
+      					<p style="width:350px;">By working to build a central and collaborative information and data resource, SPINNAKER's goal is to increase the pace of innovation and development in the savings for the poor field. SPINNAKER is designed to highlight the wide range of savings information and data available while also exposing areas for continued contributions and growth.</p>
+					</div>
+					<div style="background:#00C3C2 url('images/sprite_base.png') no-repeat -400px -90px;height:100px;width:100px;float:left;"></div>
+					<div style="margin:30px 105px;padding:0px 100px;background:#00A8A8;opacity:0.8;width:140px;position:absolute;float:left;"><h6><a style="color:#fff;"  href="http://data.spinnakernetwork.org/products">Browse the Savings Product Database</a></h6>
+					</div>
+    			</div> --><!-- end green -->
+					<!-- <div id="mainSlider">
+															<div id="slide1" style="background:#555 url('images/map_photo.png') no-repeat;min-height:250px;width:960px;margin-bottom:20px;">
+																<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:15px;">Mapping Savings Products for the Poor</h3><span style="padding:15px;color:#fff;font-size:17px;">Tracking <a href="http://data.spinnakernetwork.org/products">346</a> Products from <a href="http://data.spinnakernetwork.org/">128</a> Institutions in <a href="http://data.spinnakernetwork.org/">32</a> Countries</span></p>
+																</div>
+																<div class="slideOverlay" style="width:459px;left:500px;border-left:1px dashed #ccc;"><p><h4 style="opacity:1;color:#fff;padding:30px 110px;background:transparent url('images/sprite_base.png') no-repeat -400px -90px;height:30px;"><a href="http://data.spinnakernetwork.org/">Explore Our Database</a></h4></p>
+																</div>
+															</div>
+															<div id="slide2" style="background:#555 url('images/mobile_photo.png') no-repeat;min-height:250px;width:960px;margin-bottom:20px;">
+																<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:25px;">Savings Products Go Mobile</h3></p>
+																</div>
+																<div class="slideOverlay" style="width:459px;left:500px;border-left:1px dashed #ccc;"><span style="background:transparent url('images/sprite_base.png') no-repeat 15px -185px;height:100px;width:80px;position:absolute;margin:0px 20px;"></span><p style="color:#fff;padding:30px 110px;font-size:17px;"><a href="http://community.spinnakernetwork.org/category/publication-categories/mobile">Read out latest reports on mobile<br/>banking and mobile savings</a></p>
+																</div>
+															</div>
+															<div id="slide3" style="background:#555 url('images/community_photo.png') no-repeat;min-height:250px;width:960px;margin-bottom:20px;">
+																<div class="slideOverlay"><p><h3 style="opacity:1;color:#fff;padding:25px;">Growing Business Through Saving</h3></p>
+																</div>
+																<div class="slideOverlay" style="width:459px;left:500px;border-left:1px dashed #ccc;"><span style="background:transparent url('images/sprite_base.png') no-repeat 15px -185px;height:100px;width:80px;position:absolute;margin:0px 20px;"></span><p style="opacity:1;color:#fff;padding:30px 110px;font-size:17px;"><a href="http://community.spinnakernetwork.org/">Learn more about our community of practitioners and thought leaders</a></p>
+																</div>
+															</div>
+														</div> --> <!--end mainSlider -->
+					<!-- <div class="captionWrap"><ul id="slideCaption"></ul></div> --> <!-- mainSlider navigation -->
+									
+									
+									<!-- <div class="about">
+																		<div class="about-inner">
+																			<h6>What We Do</h6>
+																			<p>The Savings for the Poor Innovation and Knowledge Network (SPINNAKER) aggregates, standardizes and highlights the landscape of information and data on savings products for the poor by coordinating with thinkers and doers in the field. Our database, resource library and community space are the product of the innovative work of leaders in the savings for the poor field.</p>
+																		</div>
+																	</div> --><!--end about -->
 </body> 
 </html>
