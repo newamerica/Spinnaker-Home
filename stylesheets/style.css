@@ -3,6 +3,7 @@ body {
   font-family: Georgia,"Times New Roman",Serif;
   font-size: 15px;
   line-height: 20px;
+  background:#fff url(../images/stripe.png) repeat;
   }
 
 /* --------------------------
@@ -16,6 +17,9 @@ body {
   }
 #main {
   position: relative;
+  padding: 5px;
+  background: white;
+  box-shadow: 2px 2px 10px #ccc;
   }
 #header {
   height: 80px;
@@ -221,6 +225,9 @@ input.submit:hover {
 #masthead {
   background: #333;
   height: 30px;
+  z-index: 100;
+  position: relative;
+  box-shadow: 0px 2px 5px #ccc;
   }
 #masthead a#newamerica {
   background: transparent url(/images/sprite_base.png) no-repeat 0 0;
